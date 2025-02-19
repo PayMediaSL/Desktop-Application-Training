@@ -8,6 +8,10 @@
         ResizeMode="NoResize" WindowStyle="SingleBorderWindow" WindowState="Normal"
         Title="Calculator" Height="348" Width="292">
 
+        
+
+
+
     <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="27*"/>
