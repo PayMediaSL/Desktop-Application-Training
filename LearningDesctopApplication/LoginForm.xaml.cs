@@ -11,8 +11,6 @@ namespace LearningDesctopApplication
 {
     public partial class LoginForm : Window
     {
-
-
         public LoginForm()
         {
             InitializeComponent();
@@ -34,9 +32,9 @@ namespace LearningDesctopApplication
 
             string hashedPassword = Actions.HashPassword(password);
 
-            var context = new ApplicationContext();
+            ApplicationContext context = new ApplicationContext();
 
-            var user = context.Users.FirstOrDefault(u => u.NIC == nic && u.Password == hashedPassword);
+            DbContext? user = context.Users.FirstOrDefault(u => u.NIC == nic && u.Password == hashedPassword);
 
             if (user != null)
             {
@@ -50,14 +48,12 @@ namespace LearningDesctopApplication
             }
 
         }
-
         private void Register_Click(object sender, RoutedEventArgs e)
         {
             RegistrationForm registerForm = new();
             registerForm.Show();
             this.Close();
         }
-
         private void txtNIC_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             Actions.ValidateNIC(txtNIC.Text, e);
@@ -73,11 +69,6 @@ namespace LearningDesctopApplication
             {
                 txtPassword.Focus();
             }
-        }
-
-        private void txtPassword_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
-
         }
     }
 }

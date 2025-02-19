@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:LearningDesctopApplication"
              StartupUri="LoginForm.xaml">
     <Application.Resources>
-        <Style TargetType="Button">
+        <Style TargetType="Button" >
             <Setter Property="Background" Value="#FF2D2D30"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="FontSize" Value="20"/>
@@ -44,8 +44,9 @@
                     </Trigger.ExitActions>
                 </Trigger>
             </Style.Triggers>
-
+            
         </Style>
-    </Application.Resources>
+        
+     </Application.Resources>
     
 </Application>

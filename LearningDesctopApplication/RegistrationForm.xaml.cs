@@ -17,7 +17,6 @@ namespace LearningDesctopApplication
         {
             InitializeComponent();
         }
-
         private void Register_Click(object sender, RoutedEventArgs e)
         {
             string nic = txtNIC.Text.Trim();
@@ -68,9 +67,7 @@ namespace LearningDesctopApplication
                         MessageBox.Show("User with this NIC or Email already exists.", "Registration Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
-
-            
-                    var user = new Model.DbContext
+                    DbContext user = new DbContext
                     {
                         NIC = nic,
                         Name = name,
@@ -87,15 +84,11 @@ namespace LearningDesctopApplication
                     MessageBox.Show("An error occurred while registering the user.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     throw;
                 }
-      
-               
-
                 LoginForm loginForm = new LoginForm();
                 loginForm.Show();
                 this.Close();
             }
         }
-
         
         private void Login_Click(object sender, RoutedEventArgs e)
         {
@@ -123,24 +116,17 @@ namespace LearningDesctopApplication
 
         private void txtEmail_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
-            //TextBox textBox = sender as TextBox;
-            
-
             if (Actions.IsValidEmail(txtEmail.Text))
             {
-                txtEmail.BorderBrush = Brushes.Gray; // Normal border when valid
+                txtEmail.BorderBrush = Brushes.Gray; 
                 txtEmail.BorderThickness = new System.Windows.Thickness(1);
             }
             else
             {
-                txtEmail.BorderBrush = Brushes.Red; // Red border when invalid
+                txtEmail.BorderBrush = Brushes.Red; 
                 txtEmail.BorderThickness = new System.Windows.Thickness(2);
             }
         }
 
-        private void txtEmail_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
-            
-        }
     }
 }
