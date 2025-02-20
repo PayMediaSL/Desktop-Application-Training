@@ -42,5 +42,4 @@ namespace LearningDesctopApplication
             return Regex.IsMatch(email, emailPattern);
         }
     }
-
 }

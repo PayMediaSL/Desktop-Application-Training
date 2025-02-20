@@ -77,6 +77,7 @@ namespace LearningDesctopApplication
 
                     context.Users.Add(user);
                     context.SaveChanges();
+
                     LoggingUtility.LogUserActivity(nic, this.Name, "User registered successfully.");
                     MessageBox.Show("Registration successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
@@ -91,7 +92,6 @@ namespace LearningDesctopApplication
                 this.Close();
             }
         }
-
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
@@ -133,3 +133,4 @@ namespace LearningDesctopApplication
 
     }
 }
+
