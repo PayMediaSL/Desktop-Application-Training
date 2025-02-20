@@ -8,6 +8,7 @@ using LearningDesctopApplication.Model;
 using System.Windows.Controls;
 using static MaterialDesignThemes.Wpf.Theme;
 using System.Windows.Media;
+using System.Xml.Linq;
 
 namespace LearningDesctopApplication
 {
@@ -39,11 +40,10 @@ namespace LearningDesctopApplication
 
             if (!Actions.IsValidEmail(email))
             {
-                
-                txtEmail.BorderBrush = Brushes.Red; 
+                txtEmail.BorderBrush = Brushes.Red;
                 txtEmail.BorderThickness = new Thickness(2);
-                txtEmail.Focus(); 
-                return; 
+                txtEmail.Focus();
+                return;
             }
 
             if (!Actions.ValidatePassword(password))
@@ -57,8 +57,8 @@ namespace LearningDesctopApplication
                 MessageBox.Show("Confirm Password do not match.", "Invalid Input", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            
-            using (ApplicationContext context = new ())
+
+            using (ApplicationContext context = new())
             {
                 try
                 {
@@ -77,19 +77,22 @@ namespace LearningDesctopApplication
 
                     context.Users.Add(user);
                     context.SaveChanges();
+
+                    LoggingUtility.LogUserActivity(nic, this.Name, "User registered successfully.");
                     MessageBox.Show("Registration successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    LoggingUtility.LogException(ex);
+                    LoggingUtility.LogUserActivity(nic, this.Name, "Error occurred during registration.");
                     MessageBox.Show("An error occurred while registering the user.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    throw;
                 }
                 LoginForm loginForm = new LoginForm();
                 loginForm.Show();
                 this.Close();
             }
         }
-        
+
         private void Login_Click(object sender, RoutedEventArgs e)
         {
             LoginForm loginForm = new LoginForm();
@@ -118,28 +121,16 @@ namespace LearningDesctopApplication
         {
             if (Actions.IsValidEmail(txtEmail.Text))
             {
-                txtEmail.BorderBrush = Brushes.Gray; 
+                txtEmail.BorderBrush = Brushes.Gray;
                 txtEmail.BorderThickness = new System.Windows.Thickness(1);
             }
             else
             {
-                txtEmail.BorderBrush = Brushes.Red; 
+                txtEmail.BorderBrush = Brushes.Red;
                 txtEmail.BorderThickness = new System.Windows.Thickness(2);
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                BackButtonControl backButton = new();
-                grdBack.Children.Add(backButton);
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-        }
     }
 }
+
