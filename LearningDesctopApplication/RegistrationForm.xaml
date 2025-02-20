@@ -5,7 +5,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="SingleBorderWindow"
-        Height="500" Width="320"
+        Height="500" Width="320" Loaded="Window_Loaded"
         Background="#F5F5F5">
 
     <Grid Margin="20">
@@ -13,10 +13,21 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Create an Account" 
-                   FontSize="18" FontWeight="Bold"
-                   HorizontalAlignment="Center"
-                   Margin="0,0,0,10"/>
+        <Grid Height="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid Name="grdBack" Grid.Column="0"/>
+            <TextBlock Text="Create an Account" 
+                       FontSize="18" FontWeight="Bold" Grid.Column="1"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       />
+
+
+
+        </Grid>
+        
 
         <StackPanel Grid.Row="1" Margin="10,10,10,0" Height="381" VerticalAlignment="Top">
             <Label Content="NIC:" FontWeight="Bold"/>
