@@ -128,5 +128,18 @@ namespace LearningDesctopApplication
             }
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BackButtonControl backButton = new();
+                grdBack.Children.Add(backButton);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
