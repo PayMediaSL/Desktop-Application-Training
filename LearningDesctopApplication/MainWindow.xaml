@@ -10,22 +10,25 @@
 
     <Grid Background="LightGray">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="27*"/>
             <RowDefinition Height="139*"/>
         </Grid.RowDefinitions>
 
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="Read Logging" Click="ReadLogging_Click"/>
+            </MenuItem>
+        </Menu>
 
-
-        <Border CornerRadius="10" Background="#FF2D2D30" Padding="10" Grid.Row="0">
+        <Border CornerRadius="10" Background="#FF2D2D30" Padding="10" Grid.Row="1">
             <Grid>
                 <TextBox Name="txtDisplay" FontSize="24" TextAlignment="Right" Background="Transparent" BorderThickness="0" Foreground="White" Margin="17,0,0,0" IsReadOnly="True" Height="30" VerticalAlignment="Center"/>
-
                 <Button x:Name="btnClear" Click="btnClear_Click" Content="C" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin="-0.915,0.515" Margin="2,0,0,0"/>
-
-
             </Grid>
         </Border>
-        <Grid Margin="0,52,0,0" Grid.RowSpan="2" >
+
+        <Grid Margin="0,0,0,0" Grid.Row="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -40,7 +43,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="btn7" Click="btn7_Click" Content="7" Grid.Row="0" Grid.Column="0" FontSize="18" />
+            <Button x:Name="btn7" Click="btn7_Click" Content="7" Grid.Row="0" Grid.Column="0" FontSize="18"/>
             <Button x:Name="btn8" Click="btn8_Click" Content="8" Grid.Row="0" Grid.Column="1" FontSize="18"/>
             <Button x:Name="btn9" Click="btn9_Click" Content="9" Grid.Row="0" Grid.Column="2" FontSize="18"/>
             <Button x:Name="btnDevide" Click="btnDevide_Click" Content="/" Grid.Row="0" Grid.Column="3" FontSize="18"/>
@@ -59,7 +62,6 @@
             <Button x:Name="btnDot" Click="btnDot_Click" Content="." Grid.Row="3" Grid.Column="1" FontSize="18"/>
             <Button x:Name="btnSum" Click="btnSum_Click" Content="=" Grid.Row="3" Grid.Column="2" FontSize="18" Background="OrangeRed"/>
             <Button x:Name="btnPlus" Click="btnPlus_Click" Content="+" Grid.Row="3" Grid.Column="3" FontSize="18"/>
-
         </Grid>
     </Grid>
 </Window>

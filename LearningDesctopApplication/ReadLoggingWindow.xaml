@@ -1,0 +1,21 @@
+﻿<Window x:Class="LearningDesctopApplication.ReadLoggingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Read Logging" Height="450" Width="800" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <Label Content="Date:" VerticalAlignment="Center"/>
+            <DatePicker Name="datePicker" Margin="5"/>
+            <Label Content="Name:" VerticalAlignment="Center"/>
+            <ComboBox Name="cmbUserNames" Width="200" Margin="5"/>
+            <Button Content=" Filter " Click="Filter_Click" Margin="5"/>
+        </StackPanel>
+
+        <ListBox Name="lstLogs" Grid.Row="1" Margin="10"/>
+    </Grid>
+</Window>
