@@ -115,7 +115,6 @@ namespace LearningDesctopApplication
             LoggingUtility.LogButtonPress(nic, "Sum");
         }
 
-
         private void AppendNumber(string number)
         {
             try
@@ -128,12 +127,11 @@ namespace LearningDesctopApplication
                 _input += number;
                 txtDisplay.Text = _input;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error: Invalid Input");
-                throw;
+                LoggingUtility.LogResult(nic, $"Error in AppendNumber: {ex.Message}");
             }
-
         }
 
         private void AppendDot()
@@ -146,12 +144,11 @@ namespace LearningDesctopApplication
                     txtDisplay.Text = _input;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error: Invalid Input");
-                throw;
+                LoggingUtility.LogResult(nic, $"Error in AppendDot: {ex.Message}");
             }
-
         }
 
         private void SetOperation(char op)
@@ -166,12 +163,11 @@ namespace LearningDesctopApplication
                     isNewOperation = false;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error: Invalid Input");
-                throw;
+                LoggingUtility.LogResult(nic, $"Error in SetOperation: {ex.Message}");
             }
-
         }
 
         private void CalculateResult()
@@ -223,13 +219,13 @@ namespace LearningDesctopApplication
                     LoggingUtility.LogResult(nic, "Error: Invalid Input");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error: Invalid Input");
-                throw;
+                LoggingUtility.LogResult(nic, $"Error in CalculateResult: {ex.Message}");
             }
-
         }
+
         private void ClearInput()
         {
             _input = "";
@@ -238,9 +234,10 @@ namespace LearningDesctopApplication
             txtDisplay.Text = "0";
             isNewOperation = false;
         }
+
         private void ReadLogging_Click(object sender, RoutedEventArgs e)
         {
-            ReadLoggingWindow readLoggingWindow = new ReadLoggingWindow();
+            ReadLoggingWindow readLoggingWindow = new ReadLoggingWindow(nic);
             readLoggingWindow.ShowDialog();
         }
     }

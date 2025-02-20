@@ -8,26 +8,44 @@ namespace LearningDesctopApplication
 {
     public partial class ReadLoggingWindow : Window
     {
-        public ReadLoggingWindow()
+        private string nic;
+        public ReadLoggingWindow(string userNic)
         {
             InitializeComponent();
+            nic = userNic;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            PopulateUserNames();
+            try
+            {
+                PopulateUserNames();
+            }
+            catch (Exception ex)
+            {
+                LoggingUtility.LogResult(nic, "Error loading window");
+                MessageBox.Show("An error occurred while loading the window.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void PopulateUserNames()
         {
-            using (ApplicationContext context = new ApplicationContext())
+            try
             {
-                List<string> userNames = context.Users
-                                       .Select(u => u.Name)
-                                       .Distinct()
-                                       .ToList();
+                using (ApplicationContext context = new ApplicationContext())
+                {
+                    List<string> userNames = context.Users
+                                           .Select(u => u.Name)
+                                           .Distinct()
+                                           .ToList();
 
-                cmbUserNames.ItemsSource = userNames;
+                    cmbUserNames.ItemsSource = userNames;
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingUtility.LogResult(nic, "Error populating user names");
+                MessageBox.Show("An error occurred while populating user names.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -44,30 +62,38 @@ namespace LearningDesctopApplication
                 return;
             }
 
-            using (ApplicationContext context = new ApplicationContext())
+            try
             {
-                DbContext? user = context.Users.FirstOrDefault(u => u.Name == userName);
-                if (user == null)
+                using (ApplicationContext context = new ApplicationContext())
                 {
-                    MessageBox.Show("User not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                string logDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", selectedDate);
-                string logFilePath = Path.Combine(logDirectory, $"{user.NIC}.log");
-
-                if (File.Exists(logFilePath))
-                {
-                    string[] logEntries = File.ReadAllLines(logFilePath);
-                    foreach (string logEntry in logEntries)
+                    DbContext? user = context.Users.FirstOrDefault(u => u.Name == userName);
+                    if (user == null)
                     {
-                        lstLogs.Items.Add(logEntry);
+                        MessageBox.Show("User not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+
+                    string logDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", selectedDate);
+                    string logFilePath = Path.Combine(logDirectory, $"{user.NIC}.log");
+
+                    if (File.Exists(logFilePath))
+                    {
+                        string[] logEntries = File.ReadAllLines(logFilePath);
+                        foreach (string logEntry in logEntries)
+                        {
+                            lstLogs.Items.Add(logEntry);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("No logs found for the selected date and user name.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
-                else
-                {
-                    MessageBox.Show("No logs found for the selected date and user name.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+            }
+            catch (Exception ex)
+            {
+                LoggingUtility.LogResult(nic, "Error filtering logs");
+                MessageBox.Show("An error occurred while filtering logs.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

@@ -18,37 +18,46 @@ namespace LearningDesctopApplication
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            string nic = txtNIC.Text.Trim();
-            string password = txtPassword.Password;
-            if (string.IsNullOrEmpty(nic) && string.IsNullOrEmpty(password))
+            try
             {
-                MessageBox.Show("Fields Can not be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                string nic = txtNIC.Text.Trim();
+                string password = txtPassword.Password;
+                if (string.IsNullOrEmpty(nic) && string.IsNullOrEmpty(password))
+                {
+                    MessageBox.Show("Fields Can not be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if (string.IsNullOrEmpty(password))
+                {
+                    MessageBox.Show("Password Can not be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                string hashedPassword = Actions.HashPassword(password);
+
+                ApplicationContext context = new ApplicationContext();
+
+                DbContext? user = context.Users.FirstOrDefault(u => u.NIC == nic && u.Password == hashedPassword);
+
+                if (user != null)
+                {
+                    LoggingUtility.LogUserActivity(nic, this.GetType().Name, "User logged in successfully.");
+                    MainWindow mainForm = new MainWindow(nic);
+                    mainForm.Show();
+                    this.Close();
+                }
+                else
+                {
+                    LoggingUtility.LogUserActivity(nic, this.GetType().Name, "Failed login attempt.");
+                    MessageBox.Show("Invalid NIC or Password.", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            else if (string.IsNullOrEmpty(password))
+            catch (Exception ex)
             {
-                MessageBox.Show("Password Can not be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            string hashedPassword = Actions.HashPassword(password);
-
-            ApplicationContext context = new ApplicationContext();
-
-            DbContext? user = context.Users.FirstOrDefault(u => u.NIC == nic && u.Password == hashedPassword);
-
-            if (user != null)
-            {
-                LoggingUtility.LogUserActivity(nic, this.GetType().Name, "User logged in successfully.");
-                MainWindow mainForm = new MainWindow(nic);
-                mainForm.Show();
-                this.Close();
-            }
-            else
-            {
-                LoggingUtility.LogUserActivity(nic, this.GetType().Name, "Failed login attempt.");
-                MessageBox.Show("Invalid NIC or Password.", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                LoggingUtility.LogException(ex);
+                MessageBox.Show("An error occurred during login. Please try again later.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void Register_Click(object sender, RoutedEventArgs e)
         {
             RegistrationForm registerForm = new();

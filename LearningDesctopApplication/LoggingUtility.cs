@@ -11,20 +11,27 @@ namespace LearningDesctopApplication
 
         public static void LogUserActivity(string userName, string windowName, string activity)
         {
-            string dateFolder = DateTime.Now.ToString("yyyy-MM-dd");
-            string userLogDirectory = Path.Combine(BaseLogDirectory, dateFolder);
-
-            if (!Directory.Exists(userLogDirectory))
+            try
             {
-                Directory.CreateDirectory(userLogDirectory);
+                string dateFolder = DateTime.Now.ToString("yyyy-MM-dd");
+                string userLogDirectory = Path.Combine(BaseLogDirectory, dateFolder);
+
+                if (!Directory.Exists(userLogDirectory))
+                {
+                    Directory.CreateDirectory(userLogDirectory);
+                }
+
+                string logFilePath = Path.Combine(userLogDirectory, $"{userName}.log");
+
+                using (StreamWriter writer = new StreamWriter(logFilePath, true))
+                {
+                    string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {windowName} - {activity}";
+                    writer.WriteLine(logEntry);
+                }
             }
-
-            string logFilePath = Path.Combine(userLogDirectory, $"{userName}.log");
-
-            using (StreamWriter writer = new StreamWriter(logFilePath, true))
+            catch (Exception ex)
             {
-                string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {windowName} - {activity}";
-                writer.WriteLine(logEntry);
+                LogException(ex);
             }
         }
 
@@ -44,6 +51,32 @@ namespace LearningDesctopApplication
         {
             Window? activeWindow = Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
             return activeWindow?.Title ?? "Unknown Window";
+        }
+
+        public static void LogException(Exception ex)
+        {
+            try
+            {
+                string dateFolder = DateTime.Now.ToString("yyyy-MM-dd");
+                string exceptionLogDirectory = Path.Combine(BaseLogDirectory, dateFolder);
+
+                if (!Directory.Exists(exceptionLogDirectory))
+                {
+                    Directory.CreateDirectory(exceptionLogDirectory);
+                }
+
+                string logFilePath = Path.Combine(exceptionLogDirectory, "exceptions.log");
+
+                using (StreamWriter writer = new StreamWriter(logFilePath, true))
+                {
+                    string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - Exception: {ex.Message}\n{ex.StackTrace}";
+                    writer.WriteLine(logEntry);
+                }
+            }
+            catch
+            {
+                // no not much can do here if logging fails
+            }
         }
     }
 }
