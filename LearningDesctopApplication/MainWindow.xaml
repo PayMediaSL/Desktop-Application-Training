@@ -8,10 +8,6 @@
         ResizeMode="NoResize" WindowStyle="SingleBorderWindow" WindowState="Normal"
         Title="Calculator" Height="348" Width="292">
 
-        
-
-
-
     <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -22,6 +18,7 @@
         <Menu Grid.Row="0">
             <MenuItem Header="File">
                 <MenuItem Header="Read Logging" Click="ReadLogging_Click"/>
+                <MenuItem Header="Recipt Generator" Click="Recipt_Click"/>
             </MenuItem>
         </Menu>
 

@@ -1,6 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using System.Windows;
 
 namespace LearningDesctopApplication
@@ -8,23 +9,40 @@ namespace LearningDesctopApplication
     public static class LoggingUtility
     {
         private static readonly string BaseLogDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
+        private static readonly HashSet<string> LoggedUsers = new HashSet<string>();
 
         public static void LogUserActivity(string userName, string windowName, string activity)
         {
             try
             {
-                string dateFolder = DateTime.Now.ToString("yyyy-MM-dd");
-                string userLogDirectory = Path.Combine(BaseLogDirectory, dateFolder);
+                string dateFileName = DateTime.Now.ToString("yyyy-MM-dd") + ".log";
+                string logFilePath = Path.Combine(BaseLogDirectory, dateFileName);
 
-                if (!Directory.Exists(userLogDirectory))
+                if (!Directory.Exists(BaseLogDirectory))
                 {
-                    Directory.CreateDirectory(userLogDirectory);
+                    Directory.CreateDirectory(BaseLogDirectory);
                 }
 
-                string logFilePath = Path.Combine(userLogDirectory, $"{userName}.log");
+                bool writeEndMarker = true;
+                if (File.Exists(logFilePath))
+                {
+                    string lastLine = File.ReadLines(logFilePath).LastOrDefault() ?? string.Empty;
+                    writeEndMarker = lastLine != "##END##";
+                }
 
                 using (StreamWriter writer = new StreamWriter(logFilePath, true))
                 {
+                    if (!writeEndMarker)
+                    {
+                        writer.WriteLine("##END##");
+                    }
+
+                    if (!LoggedUsers.Contains(userName))
+                    {
+                        writer.WriteLine($"[user - {userName}]");
+                        LoggedUsers.Add(userName);
+                    }
+
                     string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {windowName} - {activity}";
                     writer.WriteLine(logEntry);
                 }
@@ -57,18 +75,22 @@ namespace LearningDesctopApplication
         {
             try
             {
-                string dateFolder = DateTime.Now.ToString("yyyy-MM-dd");
-                string exceptionLogDirectory = Path.Combine(BaseLogDirectory, dateFolder);
+                string dateFileName = DateTime.Now.ToString("yyyy-MM-dd") + ".log";
+                string logFilePath = Path.Combine(BaseLogDirectory, dateFileName);
 
-                if (!Directory.Exists(exceptionLogDirectory))
+                if (!Directory.Exists(BaseLogDirectory))
                 {
-                    Directory.CreateDirectory(exceptionLogDirectory);
+                    Directory.CreateDirectory(BaseLogDirectory);
                 }
-
-                string logFilePath = Path.Combine(exceptionLogDirectory, "exceptions.log");
 
                 using (StreamWriter writer = new StreamWriter(logFilePath, true))
                 {
+                    if (!(new FileInfo(logFilePath).Length > 0))
+                    {
+                        writer.WriteLine("##END##");
+                    }
+
+                    writer.WriteLine($"[user - Exception]");
                     string logEntry = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - Exception: {ex.Message}\n{ex.StackTrace}";
                     writer.WriteLine(logEntry);
                 }
