@@ -84,14 +84,19 @@ namespace LearningDesctopApplication
                 catch (Exception ex)
                 {
                     LoggingUtility.LogException(ex);
+                    if (ex.InnerException != null)
+                    {
+                        LoggingUtility.LogException(ex.InnerException);
+                    }
                     LoggingUtility.LogUserActivity(nic, this.Name, "Error occurred during registration.");
-                    MessageBox.Show("An error occurred while registering the user.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("An error occurred while registering the user. See log for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 LoginForm loginForm = new LoginForm();
                 loginForm.Show();
                 this.Close();
             }
         }
+
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {

@@ -241,5 +241,12 @@ namespace LearningDesctopApplication
             ReadLoggingWindow readLoggingWindow = new ReadLoggingWindow(nic);
             readLoggingWindow.ShowDialog();
         }
+
+        private void Recipt_Click(object sender, RoutedEventArgs e)
+        {
+            ReceiptGenerator ReceiptGenerator = new ReceiptGenerator();
+            ReceiptGenerator.ShowDialog();
+        }
+
     }
 }
