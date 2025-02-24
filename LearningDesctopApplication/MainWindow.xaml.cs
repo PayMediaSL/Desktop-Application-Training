@@ -248,5 +248,10 @@ namespace LearningDesctopApplication
             ReceiptGenerator.ShowDialog();
         }
 
+        private void Whether_Click(object sender, RoutedEventArgs e)
+        {
+            WeatherForecast WeatherForecast = new WeatherForecast();
+            WeatherForecast.ShowDialog();
+        }
     }
 }
