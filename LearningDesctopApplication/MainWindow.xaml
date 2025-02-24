@@ -19,6 +19,7 @@
             <MenuItem Header="File">
                 <MenuItem Header="Read Logging" Click="ReadLogging_Click"/>
                 <MenuItem Header="Recipt Generator" Click="Recipt_Click"/>
+                <MenuItem Header="Whether API" Click="Whether_Click"/>
             </MenuItem>
         </Menu>
 
