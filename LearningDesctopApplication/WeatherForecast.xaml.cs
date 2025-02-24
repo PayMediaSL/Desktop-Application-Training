@@ -18,40 +18,40 @@ namespace LearningDesctopApplication
             {
                 BaseAddress = new Uri("https://localhost:7072/api/weather-for-range")
             };
-            FromDate.SelectedDate = DateTime.Today;
-            ToDate.SelectedDate = DateTime.Today.AddDays(5);
+            datePickerFromDate.SelectedDate = DateTime.Today;
+            datePickerToDate.SelectedDate = DateTime.Today.AddDays(5);
         }
 
         private async void GetWeatherBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (!FromDate.SelectedDate.HasValue || !ToDate.SelectedDate.HasValue)
+                if (!datePickerFromDate.SelectedDate.HasValue || !datePickerToDate.SelectedDate.HasValue)
                 {
                     MessageBox.Show("Please select both dates");
                     return;
                 }
 
-                var dateRange = new DateRange
+                DateRange dateRange = new DateRange
                 {
-                    StartDate = DateOnly.FromDateTime(FromDate.SelectedDate.Value),
-                    EndDate = DateOnly.FromDateTime(ToDate.SelectedDate.Value)
+                    StartDate = DateOnly.FromDateTime(datePickerFromDate.SelectedDate.Value),
+                    EndDate = DateOnly.FromDateTime(datePickerToDate.SelectedDate.Value)
                 };
 
-                var content = JsonContent.Create(dateRange);
-                var response = await _httpClient.PostAsync("weather-for-range", content);
+                JsonContent content = JsonContent.Create(dateRange);
+                HttpResponseMessage response = await _httpClient.PostAsync("weather-for-range", content);
                 response.EnsureSuccessStatusCode();
 
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                var forecasts = JsonConvert.DeserializeObject<IEnumerable<WeatherForecast1>>(jsonResponse);
+                string jsonResponse = await response.Content.ReadAsStringAsync();
+                IEnumerable<WeatherForecast1>? forecasts = JsonConvert.DeserializeObject<IEnumerable<WeatherForecast1>>(jsonResponse);
 
-                WeatherTilesPanel.Children.Clear();
+                wrapPanelWeather.Children.Clear();
 
                 foreach (WeatherForecast1 forecast in forecasts)
                 {
                     WeatherTileControl tile = new WeatherTileControl();
                     tile.SetWeatherData(forecast);
-                    WeatherTilesPanel.Children.Add(tile);
+                    wrapPanelWeather.Children.Add(tile);
                 }
             }
             catch (Exception ex)

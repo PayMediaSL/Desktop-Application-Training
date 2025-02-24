@@ -33,17 +33,17 @@
                          Grid.Column="0" 
                          VerticalAlignment="Center" 
                          Margin="0,0,10,0"/>
-                <DatePicker x:Name="FromDate" 
+                <DatePicker x:Name="datePickerFromDate" 
                           Grid.Column="1"/>
 
                 <TextBlock Text="To:" 
                          Grid.Column="2" 
                          VerticalAlignment="Center" 
                          Margin="20,0,10,0"/>
-                <DatePicker x:Name="ToDate" 
+                <DatePicker x:Name="datePickerToDate" 
                           Grid.Column="3"/>
 
-                <Button x:Name="GetWeatherBtn" 
+                <Button x:Name="btnGetWeather" 
                         Content=" Get Weather " 
                         Grid.Column="4" 
                         Margin="20,0,0,0" 
@@ -56,7 +56,7 @@
 
         <ScrollViewer Grid.Row="1" 
                      VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
-            <WrapPanel x:Name="WeatherTilesPanel"/>
+            <WrapPanel x:Name="wrapPanelWeather"/>
         </ScrollViewer>
     </Grid>
 </Window>
