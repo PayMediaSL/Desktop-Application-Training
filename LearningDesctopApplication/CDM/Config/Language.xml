@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Languages>
+  <Language code="en">
+    <Categories>
+      <Category id="1" text="Withdrawal" />
+      <Category id="2" text="Balance Inquiry" />
+      <Category id="3" text="Mini Statement" />
+    </Categories>
+  </Language>
+  <Language code="si">
+    <Categories>
+      <Category id="1" text="මුදල් ගැනීම" />
+      <Category id="2" text="ශේෂය විමසීම" />
+      <Category id="3" text="ගනුදෙනු විස්තර" />
+    </Categories>
+  </Language>
+  <Language code="ta">
+    <Categories>
+      <Category id="1" text="பணம் எடுத்தல்" />
+      <Category id="2" text="இருப்பு விசாரணை" />
+      <Category id="3" text="மினி அறிக்கை" />
+    </Categories>
+  </Language>
+</Languages>
