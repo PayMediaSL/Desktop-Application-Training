@@ -1,0 +1,114 @@
+﻿<Window x:Class="LearningDesctopApplication.CDM.CategoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LearningDesctopApplication.CDM"
+        mc:Ignorable="d"
+        WindowStyle="None" 
+        WindowState="Maximized" 
+        WindowStartupLocation="CenterScreen"
+        Title="CategoryWindow" Height="619" Width="1027">
+    <Window.Resources>
+        <Style x:Key="LanguageButton" TargetType="Button">
+            <Setter Property="Width" Value="320"/>
+            <Setter Property="Height" Value="70"/>
+            <Setter Property="Margin" Value="0,15"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#1a73e8"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                            CornerRadius="35"
+                            BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#1557b0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#141e30" Offset="0"/>
+                <GradientStop Color="#243b55" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Button Content="←" 
+            Click="Back_Click"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top"
+            Width="40" 
+            Height="40" 
+            Background="Transparent"
+            Foreground="White"
+            FontSize="24"
+            FontWeight="Bold"
+            BorderThickness="0"
+            Cursor="Hand"
+            Margin="20">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="#1a73e8"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Button Content="✕" 
+            Click="Exit_Click"
+            HorizontalAlignment="Right" 
+            VerticalAlignment="Top"
+            Width="40" 
+            Height="40" 
+            Background="Transparent"
+            Foreground="#FF5252"
+            FontSize="20"
+            BorderThickness="0"
+            Cursor="Hand"
+            Margin="20">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="#FF0000"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="987">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <TextBlock Text="Select a Category" 
+                   Foreground="White" 
+                   FontSize="42" 
+                   FontWeight="Bold" 
+                   TextAlignment="Center"
+                   Margin="0,0,0,20"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                    <Button x:Name="btn1" Content="name" Style="{StaticResource LanguageButton}"/>
+                    <Button x:Name="btn2" Content="name" Style="{StaticResource LanguageButton}"/>
+                    <Button x:Name="btn3" Content="name" Style="{StaticResource LanguageButton}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>

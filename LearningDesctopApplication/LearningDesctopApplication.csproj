@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="CDM\BOC.jpg" />
+    <None Remove="CDM\BOC.png" />
+    <None Remove="CDM\HNB.png" />
+    <None Remove="CDM\people.png" />
+    <None Remove="CDM\sampath.png" />
+    <None Remove="Resources\BOC.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="iTextSharp" Version="5.5.13.4" />
     <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
@@ -25,6 +34,17 @@
 
   <ItemGroup>
     <Folder Include="Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="CDM\BOC.jpg" />
+    <Resource Include="CDM\BOC.png" />
+    <Resource Include="CDM\HNB.png" />
+    <Resource Include="CDM\people.png" />
+    <Resource Include="CDM\sampath.png" />
+    <Resource Include="Resources\BOC.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
